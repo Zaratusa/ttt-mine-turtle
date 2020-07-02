@@ -13,11 +13,13 @@ hook.Add("TTTPrepareRound", "MineTurtleClean", function()
 end)
 
 local specDM = file.Exists("sh_spectator_deathmatch.lua", "LUA")
+
 function ENT:Think()
 	if (IsValid(self) and self:IsActive()) then
 		if (!self.HelloPlayed) then
 			local isValid
 			for _, ent in ipairs(ents.FindInSphere(self:GetPos(), self.ScanRadius)) do
+
 				-- Spectator Deathmatch support
 				isValid = IsValid(ent) and ent:IsPlayer() and !ent:IsSpec()
 				if (isValid and specDM) then
@@ -49,12 +51,29 @@ end
 
 function ENT:SendWarn(armed)
 	local owner = self:GetPlacer()
-	if (!armed or (IsValid(owner) and owner:IsRole(ROLE_TRAITOR))) then
+
+	if (TTT2 or !armed or (IsValid(owner) and owner:IsRole(ROLE_TRAITOR))) then
 		net.Start("TTT_MineTurtleWarning")
-			net.WriteUInt(self:EntIndex(), 16)
-			net.WriteBool(armed)
+
+		net.WriteUInt(self:EntIndex(), 16)
+		net.WriteBool(armed)
+
+		if (armed) then
 			net.WriteVector(self:GetPos())
-		net.Send(GetTraitorFilter(true))
+			if (TTT2) then
+				net.WriteString(owner:GetTeam())
+			end
+		end
+
+		if (!armed) then
+			if (TTT2) then
+				net.Send(GetTeamFilter(owner:GetTeam(), true))
+			else
+				net.Send(GetTraitorFilter(true))
+			end
+		else
+			net.Broadcast()
+		end
 	end
 end
 

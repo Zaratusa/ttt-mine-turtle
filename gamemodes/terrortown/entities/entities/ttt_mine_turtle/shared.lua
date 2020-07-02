@@ -142,7 +142,7 @@ function ENT:UseOverride(activator)
 
 			-- remove the entity
 			if activator:HasWeapon("weapon_ttt_mine_turtle") then
-				if (self:GetPlacer() != activator) then
+				if (self:GetPlacer() ~= activator) then
 					activator:EmitSound(self.HelloTurtleSound)
 				end
 				self:Remove()

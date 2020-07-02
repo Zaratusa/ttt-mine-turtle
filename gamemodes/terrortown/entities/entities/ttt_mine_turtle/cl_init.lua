@@ -10,9 +10,15 @@ net.Receive("TTT_MineTurtleWarning", function()
 	local idx = net.ReadUInt(16)
 	local armed = net.ReadBool()
 
-	if armed then
+	if (armed) then
 		local pos = net.ReadVector()
-		RADAR.bombs[idx] = {pos = pos, nick = "Mine Turtle"}
+
+		if (TTT2) then
+			local team = net.ReadString()
+			RADAR.bombs[idx] = {pos = pos, nick = "Mine Turtle", team = team}
+		else
+			RADAR.bombs[idx] = {pos = pos, nick = "Mine Turtle"}
+		end
 	else
 		RADAR.bombs[idx] = nil
 	end
