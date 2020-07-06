@@ -2,10 +2,11 @@
 SWEP.Author = "Zaratusa"
 SWEP.Contact = "http://steamcommunity.com/profiles/76561198032479768"
 
-local detectiveEnabled = CreateConVar("ttt_mineturtle_detective", 0, {FCVAR_SERVER_CAN_EXECUTE, FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Should Detectives be able to buy the Mine Turtle?")
-local traitorEnabled = CreateConVar("ttt_mineturtle_traitor", 1, {FCVAR_SERVER_CAN_EXECUTE, FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Should Traitors be able to buy the Mine Turtle?")
-CreateConVar("ttt_mineturtle_max", 5, {FCVAR_SERVER_CAN_EXECUTE, FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Maximum amount of turtles everyone can carry.")
-CreateConVar("ttt_mineturtle_bought", 2, {FCVAR_SERVER_CAN_EXECUTE, FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Amount of turtles you receive, when you buy a Mine Turtle.")
+local detectiveEnabled = CreateConVar("ttt_mineturtle_detective", 0, {FCVAR_SERVER_CAN_EXECUTE, FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Should Detectives be able to buy the Mine Turtle?", 0, 1)
+local traitorEnabled = CreateConVar("ttt_mineturtle_traitor", 1, {FCVAR_SERVER_CAN_EXECUTE, FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Should Traitors be able to buy the Mine Turtle?", 0, 1)
+
+local defaultClipSize = CreateConVar("ttt_mineturtle_bought", 2, {FCVAR_SERVER_CAN_EXECUTE, FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Amount of turtles you receive, when you buy a Mine Turtle.", 1)
+local clipSize = CreateConVar("ttt_mineturtle_max", 5, {FCVAR_SERVER_CAN_EXECUTE, FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Maximum amount of turtles you can carry.", 1)
 
 -- always derive from weapon_tttbase
 SWEP.Base = "weapon_tttbase"
@@ -14,8 +15,8 @@ SWEP.Base = "weapon_tttbase"
 SWEP.Primary.Ammo = "none"
 SWEP.Primary.Delay = 1.5
 SWEP.Primary.Automatic = false
-SWEP.Primary.ClipSize = GetConVar("ttt_mineturtle_max"):GetInt()
-SWEP.Primary.DefaultClip = GetConVar("ttt_mineturtle_bought"):GetInt()
+SWEP.Primary.DefaultClip = defaultClipSize:GetInt()
+SWEP.Primary.ClipSize = clipSize:GetInt()
 SWEP.Secondary.Delay = 1.5
 SWEP.FiresUnderwater = false
 
