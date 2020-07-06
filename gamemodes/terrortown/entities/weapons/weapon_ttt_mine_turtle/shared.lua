@@ -7,6 +7,7 @@ local traitorEnabled = CreateConVar("ttt_mineturtle_traitor", 1, {FCVAR_SERVER_C
 
 local defaultClipSize = CreateConVar("ttt_mineturtle_bought", 2, {FCVAR_SERVER_CAN_EXECUTE, FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Amount of turtles you receive, when you buy a Mine Turtle.", 1)
 local clipSize = CreateConVar("ttt_mineturtle_max", 5, {FCVAR_SERVER_CAN_EXECUTE, FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Maximum amount of turtles you can carry.", 1)
+local hasLimitedStock = CreateConVar("ttt_mineturtle_limited_stock", 1, {FCVAR_SERVER_CAN_EXECUTE, FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Can you buy the Mine Turtle only once per round?", 0, 1)
 
 -- always derive from weapon_tttbase
 SWEP.Base = "weapon_tttbase"
@@ -51,7 +52,7 @@ if (traitorEnabled:GetBool()) then
 end
 
 -- If LimitedStock is true, you can only buy one per round.
-SWEP.LimitedStock = true
+SWEP.LimitedStock = hasLimitedStock:GetBool()
 
 -- If AllowDrop is false, players can't manually drop the gun with Q
 SWEP.AllowDrop = true
