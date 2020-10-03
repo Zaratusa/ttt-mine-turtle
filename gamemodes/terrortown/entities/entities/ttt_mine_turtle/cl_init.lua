@@ -3,6 +3,9 @@ include('shared.lua')
 LANG.AddToLanguage("english", "mine_turtle_full", "You currently cannot carry more Mine Turtle's")
 LANG.AddToLanguage("english", "mine_turtle_disarmed", "A Mine Turtle you've planted has been disarmed.")
 
+LANG.AddToLanguage("Русский", "mine_turtle_full", "Вы не можете носить с собой больше черепашьих мин.")
+LANG.AddToLanguage("Русский", "mine_turtle_disarmed", "Подсаженная вами черепашья мина обезврежена.")
+
 ENT.PrintName = "Mine Turtle"
 ENT.Icon = "vgui/ttt/icon_mine_turtle"
 
